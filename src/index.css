@@ -1,0 +1,70 @@
+/*This is a Placeholder index.css!*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 30 100% 95%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 30 100% 95%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 30 100% 95%;
+
+    --primary: 24 100% 60%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 30 100% 95%;
+
+    --muted: 222 47% 12%;
+    --muted-foreground: 30 20% 65%;
+
+    --accent: 24 100% 60%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 24 50% 30%;
+    --input: 222 47% 12%;
+    --ring: 24 100% 60%;
+
+    --radius: 0.5rem;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.7);
+  }
+}
