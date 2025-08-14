@@ -4,7 +4,7 @@ import Index from "./pages/Index";
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
+import "./app.css";
 
 const App = () => {
   return (
