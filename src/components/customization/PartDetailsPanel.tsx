@@ -6,8 +6,8 @@ import type { CustomizationOption, ModelPart } from '../Types';
 
 interface PartDetailsPanelProps {
   selectedPart: ModelPart | null;
-  onWindowClose: () => void;
   isOpen: boolean;
+  onWindowClose: () => void;
   onRemovePart?: (partId: string) => void;
 }
 

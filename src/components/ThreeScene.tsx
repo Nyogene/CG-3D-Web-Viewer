@@ -47,7 +47,7 @@ function ModelComponent({ modelPart, isSelected, onClick }: ModelComponentProps)
       >
         <boxGeometry args={[0.5, 0.5, 0.5]} />
         <meshStandardMaterial
-          color={isSelected ? "#ff8c00" : hovered ? "#00ff37ff" : "#00e1ffff"}
+          color={"#ff8c00"}
           wireframe
         />
       </mesh>

@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 // Model Related Types
 
 
@@ -14,8 +16,8 @@ export interface ModelPartType {
 
 export interface ModelAttachmentPointType {
     name: string;
-    position: [number, number, number];
-    rotation?: [number, number, number];
+    position: THREE.Vector3;
+    rotation?: THREE.Vector3;
 }
 
 

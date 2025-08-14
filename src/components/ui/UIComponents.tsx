@@ -1,9 +1,9 @@
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
-import { useState, useRef, useContext, createContext } from 'react';
+import { useState, useRef, useContext, createContext, type ChangeEvent } from 'react';
 import type { ModelPart } from '../Types';
 
 
-interface DropdownContextType {
+interface DropdownContextProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   displayItems: ModelPart[];
@@ -12,7 +12,12 @@ interface DropdownContextType {
 }
 
 
-const DropdownContext = createContext<DropdownContextType | undefined>(
+interface SearchbarProps {
+  inputHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+
+const DropdownContext = createContext<DropdownContextProps | undefined>(
   undefined
 );
 
@@ -41,12 +46,12 @@ export const ToggleButton = ({ title }: { title: string }) => {
   return (
     <button 
       onClick={() => context?.setIsOpen(!context?.isOpen)}
-      className="w-full flex items-center justify-between p-3 bg-orange-500 rounded-lg hover:opacity-80 transition-colors text-white font-medium"
+      className='w-full flex items-center justify-between p-3 bg-orange-500 rounded-lg hover:opacity-80 transition-colors text-white font-medium'
     >
       <span>
         {title}
       </span>
-      {context?.isOpen ? <FiChevronUp className="w-4 h-4"/> : <FiChevronDown className="w-4 h-4"/>}
+      {context?.isOpen ? <FiChevronUp className='w-4 h-4'/> : <FiChevronDown className='w-4 h-4'/>}
     </button>
   );
 }
@@ -69,6 +74,20 @@ export const DropdownContent = () => {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+
+export const Searchbar = ({ inputHandler }: SearchbarProps) => {
+  return (
+    <div className='w-full flex items-center p-3 bg-zinc-900 rounded-lg hover:opacity-80 transition-colors text-white font-medium'>
+      <input 
+        className='w-full' 
+        placeholder='Search...' style={{ outline: 'none'}}
+        onChange={inputHandler}
+      >
+      </input>
     </div>
   );
 }

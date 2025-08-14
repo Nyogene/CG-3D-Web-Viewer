@@ -1,20 +1,30 @@
 import ThreeScene from '../components/ThreeScene';
 import PartDetailsPanel from '../components/customization/PartDetailsPanel';
 
-import { useState } from 'react';
-import { Dropdown, DropdownContent, ToggleButton } from '../components/ui/UIComponents';
+import { Dropdown, DropdownContent, ToggleButton, Searchbar } from '../components/ui/UIComponents';
 import { partTypeRegistry } from '../components/Types';
 import { partRegistry } from '../components/ModelPart';
+import { useState, type ChangeEvent } from 'react';
 import type { ModelPart } from '../components/Types';
 
 
 export default function Index() {
   const allParts = Object.values(partRegistry).flat();
-
+  
   const [selectedPart, setSelectedPart] = useState<ModelPart | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [activeParts, setActiveParts] = useState<ModelPart[]>(allParts);
+  const [searchText, setSearchText] = useState("");
+  
 
+  const filteredParts = allParts.filter((part) => {
+    if (searchText.trim() === '') {
+      return true;
+    }
+    return part.name.toLowerCase().includes(searchText.toLowerCase());
+  });
+
+  
   const selectPart = (part: ModelPart) => {
     const updatedPart = { ...part, isSelected: true, isVisible: true };
 
@@ -27,15 +37,18 @@ export default function Index() {
     });
   };
 
+
   const handleResetView = () => {
     setActiveParts([]);
     setSelectedPart(null); // Change this so it resets to default parts
     setIsPanelOpen(false);
   };
 
+
   const handleTogglePhotoMode = () => {
     // Toggle UI Visibility here
   };
+
 
   const handleRemovePart = (partId: string) => {
     setActiveParts(prev => prev.filter(p => p.id !== partId));
@@ -51,22 +64,34 @@ export default function Index() {
     // Don't reset selectedPart to null to keep visual state
   };
 
- return (
-    <div className="h-screen w-screen flex bg-gray-950 overflow-hidden" style={{ minWidth: '800px' }}>
-      
-      <div className="w-80 lg:w-1/4 xl:w-80 p-2 sm:p-4 overflow-y-auto flex-shrink-0" style={{ backgroundColor: '#2f2e2d', minWidth: '260px', maxWidth: '400px' }}>
-        <div className="mb-6">
-          <h1 className="text-2xl text-orange-500 font-bold mb-2">
-            CRIMSON-CONFIGURATOR <span className="text-white">V1.04</span>
-          </h1>
-          <p className="text-gray-400 text-sm">CUSTOMIZE YOUR MECHA</p>
-        </div>
-        
-        <div className="space-y-3">
-          {partTypeRegistry.map((partType) => {
-            const partsPerType = allParts.filter(part => part.partType === partType.id);
 
-            return partsPerType.length > 0 && (
+  let inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    let input = e.target.value.toLowerCase(); 
+    setSearchText(input);
+  }
+
+  return (
+    <div className='h-screen w-screen flex bg-gray-950 overflow-hidden' style={{ minWidth: '800px' }}>
+      
+      <div className='w-80 lg:w-1/4 xl:w-80 p-2 sm:p-4 overflow-y-auto flex-shrink-0' style={{ backgroundColor: '#2f2e2d', minWidth: '260px', maxWidth: '400px' }}>
+        <div className='mb-6'>
+          <h1 className='text-2xl text-orange-500 font-bold mb-2'>
+            CRIMSON-CONFIGURATOR <span className='text-white'>V1.04</span>
+          </h1>
+          <p className='text-gray-400 text-sm'>CUSTOMIZE YOUR MECHA</p>
+        </div>
+
+        <div className='mb-4'>
+          <Searchbar inputHandler={inputHandler}>
+          </Searchbar>
+        </div>
+
+        
+        <div className='space-y-4'>
+          {partTypeRegistry.map((partType) => {
+            const partsPerType = filteredParts.filter(part => part.partType === partType.id); // Instead of mapping from allParts, map a filtered Registry where the Searchbars' input is taken into consideration
+
+            return partsPerType.length > 0 && ( // Render Dropdown only if there are parts under this category
               <Dropdown
                 key={partType.id}
                 displayItems={partsPerType}
@@ -81,26 +106,26 @@ export default function Index() {
         
       </div>
 
-      <div className="flex-1 relative min-w-0">
+      <div className='flex-1 relative min-w-0'>
         <ThreeScene
           selectedParts={activeParts}
           selectedPart={selectedPart}
           onPartClick={selectPart}
-          className="w-full h-full"
+          className='w-full h-full'
         />
         
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          <div className="bg-zinc-700 border border-gray-500/30 rounded-lg p-3">
-            <div className="flex gap-3">
+        <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2'>
+          <div className='bg-zinc-700 border border-gray-500/30 rounded-lg p-3'>
+            <div className='flex gap-3'>
               <button
                 onClick={handleResetView}
-                className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-300 transition-colors"
+                className='px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-300 transition-colors'
               >
                 Reset View
               </button>
               <button
                 onClick={handleTogglePhotoMode}
-                className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-300 transition-colors"
+                className='px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-300 transition-colors'
               >
                 Photo Mode (WIP)
               </button>
