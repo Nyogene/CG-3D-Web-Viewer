@@ -1,5 +1,5 @@
 import type { CustomizationOption } from '../Types';
-
+import styles from './CustomizationGroup.module.css';
 
 interface CustomizationGroupProps {
   title: string;
@@ -16,24 +16,24 @@ export default function CustomizationGroup({
   onOptionSelect
 }: CustomizationGroupProps) {
   return (
-    <div className="space-y-5">
-      <div className="bg-zinc-800 rounded p-3">
-        <h4 className="text-neutral-50 font-medium text-sm">{title}</h4>
+    <div className={styles.spaceY5}>
+      <div className={styles.groupHeader}>
+        <h4 className={styles.groupTitle}>{title}</h4>
       </div>
-      <div className="space-y-2">
+      <div className={styles.spaceY2}>
         {options.map((option) => (
-          <div key={option.id} className="flex items-center gap-5">
-            <div className="w-8 h-8 bg-neutral-50 rounded flex items-center justify-center">
-              <div style={{ backgroundColor: option.color }}>
-                {option.icon}
-              </div>
+          <div key={option.id} className={styles.optionRow}>
+            <div className={styles.iconWrapper}>
+              <div style={{ backgroundColor: option.color }}>{option.icon}</div>
             </div>
             <button
               onClick={() => onOptionSelect(option.id)}
-              className={`flex-1 px-3 py-2 rounded text-sm font-medium transition-colors ${selectedOption === option.id
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-zinc-600 text-white hover:bg-zinc-400'
-                }`}
+              className={[
+                styles.optionBtn,
+                selectedOption === option.id
+                  ? styles.optionBtnActive
+                  : styles.optionBtnInactive,
+              ].join(' ')}
             >
               {option.name}
             </button>

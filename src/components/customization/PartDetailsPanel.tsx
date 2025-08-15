@@ -2,7 +2,7 @@ import CustomizationGroup from './CustomizationGroup';
 import { IoClose } from "react-icons/io5";
 import { useState } from 'react';
 import type { CustomizationOption, ModelPart } from '../Types';
-
+import styles from './PartDetailsPanel.module.css';
 
 interface PartDetailsPanelProps {
   selectedPart: ModelPart | null;
@@ -34,27 +34,25 @@ export default function PartDetailsPanel({ selectedPart, onWindowClose: onClose,
   );
 
   return (
-      <div className="border-l-5 border-orange-500 p-2 sm:p-4 overflow-y-auto" 
-        style={{ 
-          backgroundColor: "rgb(47, 46, 45)", 
-          width: "clamp(260px, 25vw, 400px)", 
-          flexShrink: 0 
-        }}
-      >
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold" style={{ color: '#ffffffff' }}>CUSTOMIZE</h1>
-        <button
-          onClick={onClose}
-          className="p-1 hover:bg-zinc-700 rounded transition-colors"
-        >
-          <IoClose className="w-8 h-8 text-gray-300 hover:text-white" />
+    <div
+      className={styles.panel}
+      style={{
+        backgroundColor: 'rgb(47, 46, 45)',
+        width: 'clamp(260px, 25vw, 400px)',
+        flexShrink: 0,
+      }}
+    >
+      <div className={styles.panelHeader}>
+        <h1 className={styles.panelTitle}>CUSTOMIZE</h1>
+        <button onClick={onClose} className={styles.closeBtn}>
+          <IoClose className={styles.closeIcon} />
         </button>
       </div>
 
-      <div className="space-y-6">
-        <div className="bg-zinc-800 rounded p-4">
-          <h3 className="text-orange-500 font-semibold">{selectedPart?.name || 'No part selected'}</h3>
-          <p className="text-orange-500 text-sm">{selectedPart?.partType || 'Select a part to customize'}</p>
+      <div className={styles.spaceY6}>
+        <div className={styles.infoCard}>
+          <h3 className={styles.orangeText}>{selectedPart?.name || 'No part selected'}</h3>
+          <p className={styles.orangeSubtext}>{selectedPart?.partType || 'Select a part to customize'}</p>
         </div>
 
         <CustomizationGroup
@@ -77,7 +75,6 @@ export default function PartDetailsPanel({ selectedPart, onWindowClose: onClose,
           selectedOption={selectedSticker}
           onOptionSelect={setSelectedSticker}
         />
-
       </div>
     </div>
   );
