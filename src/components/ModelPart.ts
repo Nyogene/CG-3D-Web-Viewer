@@ -10,16 +10,16 @@ export const partRegistry: PartRegistryType = {
     {
       id: "neph-head",
       name: "Nephilim Head",
-      modelUrl: "/models/neph-head.glb",
+      modelUrl: "./models/threejs_test1_gltf/scene.gltf",
       partType: "head",
       customizationOptions: [
         {
           id: "head-color-1",
-          name: "Slick Red",
-          url: "/Parts/Materials/Neph-mat-red-head",
+          name: "Orangina",
+          url: "./models/threejs_test1_gltf/textures/default",
           icon: null, // Need to set this in component
           customizationType: "color",
-          color: "#ff0000",
+          color: "#ec850fff",
           isDefaultOption: true
         },
         {

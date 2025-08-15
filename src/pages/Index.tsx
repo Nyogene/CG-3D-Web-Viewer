@@ -68,7 +68,7 @@ export default function Index() {
   let inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value.toLowerCase(); 
     setSearchText(input);
-  }
+  };
 
   return (
     <div className='h-screen w-screen flex bg-gray-950 overflow-hidden' style={{ minWidth: '800px' }}>
@@ -142,4 +142,4 @@ export default function Index() {
       />
     </div>
   );
-}
+};

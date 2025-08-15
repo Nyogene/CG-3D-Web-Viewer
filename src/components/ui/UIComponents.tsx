@@ -9,12 +9,12 @@ interface DropdownContextProps {
   displayItems: ModelPart[];
   dropdownRef: React.RefObject<HTMLDivElement | null>;
   onItemSelect?: (item: ModelPart) => void;
-}
+};
 
 
 interface SearchbarProps {
   inputHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 
 const DropdownContext = createContext<DropdownContextProps | undefined>(
@@ -37,7 +37,7 @@ export const Dropdown = ({ children, displayItems, onItemSelect }: { children: R
       <div className="w-full" ref={dropdownRef}>{children}</div>
     </DropdownContext.Provider>
   )
-}
+};
 
 
 export const ToggleButton = ({ title }: { title: string }) => {
@@ -54,7 +54,7 @@ export const ToggleButton = ({ title }: { title: string }) => {
       {context?.isOpen ? <FiChevronUp className='w-4 h-4'/> : <FiChevronDown className='w-4 h-4'/>}
     </button>
   );
-}
+};
 
 
 export const DropdownContent = () => {
@@ -76,7 +76,7 @@ export const DropdownContent = () => {
       </ul>
     </div>
   );
-}
+};
 
 
 export const Searchbar = ({ inputHandler }: SearchbarProps) => {
@@ -90,4 +90,4 @@ export const Searchbar = ({ inputHandler }: SearchbarProps) => {
       </input>
     </div>
   );
-}
+};
